@@ -3,7 +3,7 @@ import requests
 import mysql.connector
 from .config import Config
 from .db import insert_or_update_rate, get_rates_by_date, get_db_connection
-
+from .service import fetch_rates_from_api
 bp = Blueprint('main', __name__)
 
 @bp.route('/reload_data', methods=['POST'])
@@ -55,3 +55,22 @@ def reload_data():
             db_connection.close()
     
     return jsonify({'message': 'Data reloaded successfully'}), 200
+
+@bp.route('/get_exchange_rates', methods=['GET'])
+def get_exchange_rates():
+    date = request.args.get('date')  # Récupère la date de la requête
+    if not date:
+        return jsonify({'error': 'Date is required'}), 400
+
+    # Récupération des taux de change depuis l'API
+    rates = fetch_rates_from_api(date)
+
+    if not rates:
+        return jsonify({'error': 'No data found for the given date'}), 404
+
+    response = {
+        'date': date,
+        'rates': rates  # Ajoute toutes les devises du dictionnaire rates directement dans la réponse
+    }
+
+    return jsonify(response)

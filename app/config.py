@@ -11,3 +11,4 @@ class Config:
     # URL de l'API
     API_URL = os.getenv('API_URL', 'https://openexchangerates.org/api')
     API_KEY = os.getenv('API_KEY', 'b51fb011a53749d799c5777b57315c82')  # Remplace par ta clé API
+    BASE_URL = os.getenv('BASE_URL', 'https://openexchangerates.org/api/historical/')
