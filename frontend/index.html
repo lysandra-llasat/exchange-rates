@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Rates</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Exchange Rates</h1>
+    </header>
+    <main>
+        <section>
+            <label for="date-picker">Select Date:</label>
+            <input type="date" id="date-picker">
+            <button id="reload-btn">Reload Data</button>
+        </section>
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="rates-table-body">
+                    <!-- Rates will be populated here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

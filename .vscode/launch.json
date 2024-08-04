@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Flask",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",  // Remplacez par le chemin de votre fichier principal
+            "console": "integratedTerminal",
+            "env": {
+                "FLASK_APP": "run",
+                "FLASK_ENV": "development"
+            },
+            "justMyCode": true,
+            
+            "preLaunchTask": "flask-run"
+        }
+    ]
+}
