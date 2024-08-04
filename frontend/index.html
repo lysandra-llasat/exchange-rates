@@ -11,25 +11,29 @@
         <h1>Exchange Rates</h1>
     </header>
     <main>
+       
         <section>
             <label for="date-picker">Select Date:</label>
             <input type="date" id="date-picker">
             <button id="reload-btn">Reload Data</button>
+            <p id="dynamicPhrase"></p>
         </section>
         <section>
             <table>
                 <thead>
                     <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
+                        <th>Date</th>
+                        <th>EUR</th>
+                        <th>USD</th>
+                        <th>JPY</th>
+                        <th>GBP</th>
                     </tr>
                 </thead>
                 <tbody id="rates-table-body">
-                    <!-- Rates will be populated here -->
                 </tbody>
             </table>
         </section>
     </main>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>

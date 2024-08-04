@@ -1,34 +1,49 @@
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif; 
+    background-color: #f4f4f4; 
+    margin: 0; 
+    padding: 0; 
 }
 
+/* Header styling */
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+    background-color: #165994; 
+    color: rgb(239, 239, 239);
+    padding: 1rem; 
+    text-align: center; 
 }
 
+/* Main content area */
 main {
-    padding: 2rem;
+    padding: 2rem; 
 }
 
+/* Table styling */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 1rem; 
 }
 
+/* Table cells styling */
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    border: 1px solid rgb(12, 19, 62); 
+    padding: 8px; 
+    text-align: left; 
 }
 
+/* Table header styling */
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #165994; 
+    color: rgb(239, 239, 239); /
+}
+
+/* Dynamic phrase styling */
+#dynamicPhrase {
+    font-size: 1.2em; 
+    color: #333;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
 }
