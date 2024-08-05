@@ -1,7 +1,7 @@
-// Objet global pour stocker les taux de change par date
+// Global object to store exchange rates by date
 const ratesData = {};
 
-// Fonction exécutée lorsque le DOM est entièrement chargé
+// Function executed when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const reloadButton = document.getElementById('reload-btn');
     const dateInput = document.getElementById('date-picker');
@@ -12,16 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Fonction pour récupérer les taux de change depuis le serveur
+// Function to fetch exchange rates from the server
 async function fetchRates() {
     const date = document.getElementById('date-picker').value;
     const ratesTableBody = document.getElementById('rates-table-body');
     const dynamicPhrase = document.getElementById('dynamicPhrase');
-    
-    // Afficher le message de chargement et effacer la phrase dynamique
-    ratesTableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
 
-    // Effacer la phrase dynamique au début, pour montrer le chargement en cours
+    // Show loading message and clear dynamic phrase
+    ratesTableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
     dynamicPhrase.textContent = '';
 
     if (!date) {
@@ -36,64 +34,64 @@ async function fetchRates() {
         }
         const data = await response.json();
 
-        // Stocker les données dans l'objet global
+        // Store data in the global object
         ratesData[date] = data.rates;
-        displayRates();  // Afficher toutes les données stockées
-        updateDynamicPhrase(date, data.rates); // Mettre à jour la phrase dynamique
+        displayRates(); // Display all stored data
+        updateDynamicPhrase(date, data.rates); // Update the dynamic phrase
     } catch (error) {
         console.error('Error fetching rates:', error);
         ratesTableBody.innerHTML = '<tr><td colspan="5">Error fetching rates.</td></tr>';
     }
 }
 
-// Fonction pour afficher les taux de change dans le tableau
+// Function to display exchange rates in the table
 function displayRates() {
     const ratesTableBody = document.getElementById('rates-table-body');
 
-    // Effacer les lignes existantes
+    // Clear existing rows
     ratesTableBody.innerHTML = '';
 
-    // Parcourir toutes les dates et afficher les taux de change
+    // Loop through all dates and display exchange rates
     for (const [date, rates] of Object.entries(ratesData)) {
         const row = document.createElement('tr');
         
-        // Créer la cellule de la date
+        // Create date cell
         const dateCell = document.createElement('td');
         dateCell.textContent = date;
         row.appendChild(dateCell);
 
-        // Définir les devises à afficher
+        // Define currencies to display
         const currencies = ['EUR', 'USD', 'JPY', 'GBP'];
 
-        let isValidRow = true;  // Drapeau pour déterminer si la ligne doit être ajoutée
+        let isValidRow = true; // Flag to determine if the row should be added
 
-        // Ajouter les cellules pour chaque devise
+        // Add cells for each currency
         currencies.forEach(currency => {
             const rateCell = document.createElement('td');
             if (rates[currency] === undefined || rates[currency] === null) {
                 rateCell.textContent = 'N/A';
-                isValidRow = false;  // Marquer la ligne comme invalide si une cellule contient 'N/A'
+                isValidRow = false; // Mark the row as invalid if any cell contains 'N/A'
             } else {
                 rateCell.textContent = rates[currency];
             }
             row.appendChild(rateCell);
         });
 
-        // Ajouter la ligne au corps du tableau uniquement si elle est valide
+        // Append the row to the table body only if it's valid
         if (isValidRow) {
             ratesTableBody.appendChild(row);
         }
     }
 }
+
+// Function to format date to a more readable form
 function formatDate(dateString) {
     const date = new Date(dateString);
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleDateString('en-GB', options); // Format anglais
+    return date.toLocaleDateString('en-GB', options); // English format
 }
 
-
-
-// Fonction pour mettre à jour la phrase dynamique
+// Function to update the dynamic phrase
 function updateDynamicPhrase(date, rates) {
     const dynamicPhrase = document.getElementById('dynamicPhrase');
     const formattedDate = formatDate(date);
@@ -103,10 +101,10 @@ function updateDynamicPhrase(date, rates) {
     const jpyRate = rates['JPY'] ?? 'loading';
     const gbpRate = rates['GBP'] ?? 'loading';
 
-    // Mettre à jour la phrase dynamique
+    // Update the dynamic phrase
     dynamicPhrase.textContent = `Exchange rates for ${formattedDate} are: Euro = ${eurRate}, US Dollar = ${usdRate}, Japanese Yen = ${jpyRate}, British Pound = ${gbpRate}.`;
 
-    // Effacer le message de chargement une fois que les données sont traitées
+    // Clear the loading message once data is processed
     const ratesTableBody = document.getElementById('rates-table-body');
     if (ratesTableBody.innerHTML.includes('Loading...')) {
         ratesTableBody.innerHTML = ''; // Clear the loading message

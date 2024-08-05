@@ -1,0 +1,14 @@
+{
+  "name": "exchange-rates",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./ -p 8080"
+  },
+  "repository": "https://github.com/lysandra-llasat/exchange-rates.git",
+  "author": "lysandra <lysandra.llasat@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
