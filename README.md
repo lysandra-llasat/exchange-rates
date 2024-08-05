@@ -8,25 +8,40 @@ Before you start, make sure you have these tools installed:
     Docker Compose
 
 setup and start 
+    Build and start the containers: 
 
-    Build and start the containers: docker-compose up --build
+    docker-compose up --build
 
 To access the MySQL database inside the container:
+    Get the container ID:
 
-    Get the container ID: docker psConnect to the MySQL container: docker exec -it $(docker-compose ps -q db) mysql -u root -p
+    docker ps
+
+Connect to the MySQL container: 
+
+    docker exec -it $(docker-compose ps -q db) mysql -u root -p
+
 Enter the root password when asked.
 
 Export the database
+To export the database using mysqldump:
 
-    To export the database using mysqldump: docker exec $(docker-compose ps -q db) mysqldump -u root -p<example_password> example_db > backup.sql
+     docker exec $(docker-compose ps -q db) mysqldump -u root -p<example_password> example_db > backup.sql
 
 Import the data
+    Copy the backup file into the container: 
+    
+    docker cp backup.sql $(docker-compose ps -q db):/backup.sql
 
-    Copy the backup file into the container: docker cp backup.sql $(docker-compose ps -q db):/backup.sql
+Import the data: 
 
-    Import the data: docker exec -it $(docker-compose ps -q db) mysql -u root -p example_db < /backup.sql
+    docker exec -it $(docker-compose ps -q db) mysql -u root -p example_db < /backup.sql
 
 Useful Commands
+    Stop the containers: 
 
-    Stop the containers: docker-compose down
-    Rebuild the containers: docker-compose up --build
+    docker-compose down
+    
+Rebuild the containers: 
+
+    docker-compose up --build
