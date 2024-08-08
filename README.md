@@ -19,23 +19,21 @@ To access the MySQL database inside the container:
 
 Connect to the MySQL container: 
 
-    docker exec -it $(docker-compose ps -q db) mysql -u root -p
+    docker exec -it <container ID> mysql -u root -p
 
 Enter the root password when asked.
 
 Export the database
+The database information is in the config file.
 To export the database using mysqldump:
 
-     docker exec $(docker-compose ps -q db) mysqldump -u root -p<example_password> example_db > backup.sql
+     docker exec -it $(docker-compose ps -q db) sh -c 'mysqldump -u root -p exchange_rates_db' > backup.sql
 
 Import the data
     Copy the backup file into the container: 
     
     docker cp backup.sql $(docker-compose ps -q db):/backup.sql
 
-Import the data: 
-
-    docker exec -it $(docker-compose ps -q db) mysql -u root -p example_db < /backup.sql
 
 Useful Commands
     Stop the containers: 
