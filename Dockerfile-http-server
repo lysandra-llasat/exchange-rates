@@ -1,17 +1,17 @@
-
+# Dockerfile-http-server
 FROM node:18
 
-
+# Install http-server globally
 RUN npm install -g http-server
 
+# Copy frontend files into the image
+COPY frontend /usr/src/app/frontend
 
-COPY static /usr/src/app/static
+# Set working directory
+WORKDIR /usr/src/app/frontend
 
-
-WORKDIR /usr/src/app
-
-
+# Expose port for http-server
 EXPOSE 8081
 
-
-CMD ["http-server", "static", "-p", "8081"]
+# Start http-server
+CMD ["http-server", ".", "-p", "8081"]
